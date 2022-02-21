@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "后台服务",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -20,17 +22,23 @@
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
     "koa-logger": "^3.2.1",
-    "koa-router": "^10.1.1",
-    "mysql2": "^2.3.3",
-    "sequelize": "^6.16.1"
+    "koa-router": "^10.1.1"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonp": "^0.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "koa-bodyparser": "^4.3.0",
     "koa-cache-control": "^2.0.0",
     "koa-compress": "^5.1.0",
     "koa-cors": "0.0.16",
+    "koa-jwt": "^4.0.3",
     "koa-onerror": "^4.2.0",
     "koa-static": "^5.0.0",
     "md5": "^2.3.0",
-    "mkdirp": "^1.0.4"
+    "mkdirp": "^1.0.4",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.16.2"
   }
 }
