@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node app.js"
+    "start": "babel-node app.js",
+    "dev": "babel-node init-db.js"
+
   },
   "repository": {
     "type": "git",
@@ -40,6 +42,7 @@
     "mkdirp": "^1.0.4",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
+    "node-uuid": "^1.4.8",
     "sequelize": "^6.16.2"
   }
 }
