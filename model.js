@@ -1,15 +1,8 @@
-const fs = require('fs');
 const db = require('./config/index.js')
-
-let files = fs.readdirSync(__dirname+'/schema');
-
-let js_files = files.filter((f)=>{
-    return f.endsWith('.js')
-})
+const js_files = require('./schema/index')
 module.exports = {};
-for(let f of js_files){
-    let name = f.substring(0,f.length -3 );
-    module.exports[name] = require(__dirname + '/schema/' +f);
+for(let f in js_files){
+    module.exports[f] = require(__dirname + '/schema/' +f);
 }
 module.exports.sync = () =>{
     db.sync()

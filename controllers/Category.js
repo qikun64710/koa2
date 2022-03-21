@@ -1,7 +1,7 @@
-import category from '../models/Category.js'
+const category = require('../models/Category.js');
 
 // 添加分类
-const addCategory = async function(ctx,next){
+const category_addCategory = async function(ctx,next){
     const data = ctx.request.query
     let { name } = data
     if(!name){
@@ -19,7 +19,7 @@ const addCategory = async function(ctx,next){
     }
 }
 // 删除分类
-const deleteCategory = async function(ctx,next){
+const category_deleteCategory = async function(ctx,next){
     let { id } = ctx.request.query
     if(!id){
         ctx.response.body = {
@@ -36,7 +36,7 @@ const deleteCategory = async function(ctx,next){
     }
 }
 // 修改分类名称
-const updateCategory = async function(ctx,next){
+const category_updateCategory = async function(ctx,next){
     let {id,name} = ctx.request.query
     if(!id){
         ctx.response.body = {
@@ -59,7 +59,7 @@ const updateCategory = async function(ctx,next){
         info:reslut
     }
 }
-const findAllCategory = async function(ctx,next){
+const category_findAllCategory = async function(ctx,next){
     const reslut = await category.updateCategory();
     ctx.response.body = {
         success: true,
@@ -67,7 +67,7 @@ const findAllCategory = async function(ctx,next){
         info:reslut
     }
 }
-const fuzzyFind = async function(ctx,next){
+const category_fuzzyFind = async function(ctx,next){
     let { name } = ctx.request.query
     if(!name){
         return
@@ -79,10 +79,10 @@ const fuzzyFind = async function(ctx,next){
         info:reslut
     }
 }
-export default {
-    addCategory,
-    deleteCategory,
-    updateCategory,
-    findAllCategory,
-    fuzzyFind
+module.exports = {
+    category_addCategory,
+    category_deleteCategory,
+    category_updateCategory,
+    category_findAllCategory,
+    category_fuzzyFind
 }

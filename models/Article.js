@@ -1,11 +1,12 @@
-const modelArticle = require('../model.js');
+const {Article} = require('../model.js');
+const { paging } = require('../util/index.js')
 // 添加文章
 const addArticle = async function(data){
 
 }
 // 删除文章
 const deleteArticle = async function(id){
-    const reuslt = await modelArticle.destroy({
+    const reuslt = await Article.destroy({
         where:{
             id:id
         }
@@ -17,22 +18,23 @@ const updateArticle = async function(){
 
 }
 // 分页查询文章
-const findAllArticle = async function(page,count){
-    const result = await modelArticle.findAndCountAll({
-        offset: (page - 1) * count,
-        limit: count,
-        where: filters,
+const findAndCountAll = async function(page,pageSize){
+    const result = await Article.findAndCountAll({
+        offset: (page - 1) * pageSize,
+        limit: pageSize,
     });
-    return result;
+    let obj = paging(result,pageSize,page)
+    return obj;
 }
 // 模糊查询文章
 const fuzzyFind = async function(name){
     
 }
-export default {
+
+module.exports =  {
     addArticle,
     deleteArticle,
     updateArticle,
-    findAllArticle,
+    findAndCountAll,
     fuzzyFind
 }

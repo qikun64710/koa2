@@ -18,6 +18,7 @@ module.exports = db.defineModel('Article',{
         type:db.STRING(100)
     },
     type_id:{
-        type:db.INTEGER(11)
+        type:db.INTEGER(11),
+        allowNull:true,
     },
 })

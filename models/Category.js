@@ -9,7 +9,7 @@ const addCategory = async function(data){
 }
 // 删除分类
 const deleteCategory = async function(id){
-    const reuslt = await modelCategory.destroy({
+    const reuslt = await modelCategory.Category.destroy({
         where:{
             id:id
         }
@@ -18,7 +18,7 @@ const deleteCategory = async function(id){
 }
 // 修改分类名称
 const updateCategory = async function(id,name){
-    const result = await modelCategory.update({
+    const result = await modelCategory.Category.update({
         name:name
     },{
         where:{
@@ -29,14 +29,14 @@ const updateCategory = async function(id,name){
 }
 // 查找所有分类
 const findAllCategory = async function(){
-    const result = await modelCategory.findAll({
+    const result = await modelCategory.Category.findAll({
         attributes:['name']
     });
     return result;
 }
 // 模糊查询
 const fuzzyFind = async function(name){
-    const result = await modelCategory.findOne({
+    const result = await modelCategory.Category.findOne({
         attributes:['name'],
         where:{
             name:{
@@ -46,7 +46,7 @@ const fuzzyFind = async function(name){
     });
     return result;
 }
-export default {
+module.exports = {
     addCategory,
     deleteCategory,
     updateCategory,

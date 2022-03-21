@@ -1,5 +1,5 @@
 const { Sequelize, Model, DataTypes } = require("sequelize");
-import config from './config.js';
+const config = require('./config.js');
 const uuid = require('node-uuid');
 
 function generateId() {
@@ -18,6 +18,11 @@ const sequelize = new Sequelize(config.database,config.username,config.password,
 const ID_TYPE = DataTypes.STRING(50);
 function defineModel(name,attributes){
   var attrs = {};
+  attrs.id = {
+    type:DataTypes.INTEGER(11),
+    primaryKey:true,
+    autoIncrement:true,//是否自增
+  };
   for(let key in attributes){
     let value = attributes[key];
     if(typeof value === 'object' && value['type']){
@@ -30,11 +35,6 @@ function defineModel(name,attributes){
       }
     }
   }
-  attrs.id = {
-    type:DataTypes.INTEGER(11),
-    primaryKey:true,
-    autoIncrement:true,//是否自增
-  };
   attrs.createAt = {
     type: DataTypes.BIGINT,
     allowNull: false
@@ -47,25 +47,32 @@ function defineModel(name,attributes){
     type:DataTypes.BIGINT,
     allowNull:false
   };
-  return sequelize.define(name,attrs,{
-    tableName:name,
-    timestamps:false,
-    hooks:{
-      beforeValidate:function(obj){
-        let now = Date.now();
-        if(obj.isNewRecord){
-          console.log('will create entity...' + obj);
-          obj.createAt = now;
-          obj.updateAt = now;
-          obj.version = 0;
-        }else{
-          console.log('will update entity....');
-          obj.updateAt = now;
-          obj.version++;
+  class model extends Model{}
+  model.init(
+    attrs,
+    {
+      sequelize,
+      tableName:name,
+      modelName:name,
+      timestamps:false,
+      hooks:{
+        beforeValidate:function(obj){
+          let now = Date.now();
+          if(obj.isNewRecord){
+            console.log('will create entity...' + obj);
+            obj.createAt = now;
+            obj.updateAt = now;
+            obj.version = 0;
+          }else{
+            console.log('will update entity....');
+            obj.updateAt = now;
+            obj.version++;
+          }
         }
       }
     }
-  });
+  )
+  return model;
 }
 const TYPES = ['STRING','INTEGER','BINGINT','TEXT','DOUBLE','DATEONLY','BOOLEAN'];
 var exp = {

@@ -1,8 +1,7 @@
-import bcrypt from 'bcryptjs'
-// const {sequelize,DataTypes} = require('../config/index')
+const bcrypt = require('bcryptjs')
 const db = require('../config/index');
-module.exports = db.defineModel('user',{
-    user_name:{
+module.exports = db.defineModel('User',{
+    name:{
         type:db.STRING(100),
         allowNull:false
     },
@@ -14,6 +13,10 @@ module.exports = db.defineModel('user',{
             let psw = bcrypt.hashSync(value, salt)
             this.setDataValue('password', psw);
         }
+    },
+    avatar:{
+        type:db.STRING(100),
+        allowNull:true
     },
     email:{
         type:db.STRING(100),
