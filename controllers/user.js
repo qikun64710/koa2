@@ -56,7 +56,6 @@ const userRegiste = async function(ctx,next) {
     }
 }
 const uploadImg = async function(ctx,next){
-    console.log(3333)
     // 上传单个文件
     console.log('file===:',ctx.request.files)
     const file = ctx.request.files.file //获取文件

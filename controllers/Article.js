@@ -9,6 +9,16 @@ const findAndCountAll = async function(ctx,next){
         info:result
     }
 }
+// 添加文章
+const addArticle = async function(ctx,next){
+    let data = ctx.request.body
+    const result = await Article.addArticle(data)
+    ctx.response.body = {
+        code:200,
+        info:result
+    }
+}
 module.exports =  {
-    findAndCountAll
+    findAndCountAll,
+    addArticle
 }

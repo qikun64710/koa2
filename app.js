@@ -2,6 +2,7 @@ const Koa = require('koa')
 const app = new Koa()
 const onerror = require('koa-onerror')
 const koaBody = require('koa-body')
+const cors = require('koa2-cors')
 
 const article = require('./routes/article')
 const user = require('./routes/user')
@@ -10,6 +11,8 @@ const uploadImg = require('./routes/common')
 
 
 
+app.use(cors());
+
 // error handler
 onerror(app)
 
@@ -17,7 +20,6 @@ onerror(app)
 app.use(koaBody({
     multipart:true,
 }))
-
 
 // routes
 app.use(article.routes(), article.allowedMethods())
