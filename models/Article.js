@@ -2,12 +2,12 @@ const {Article} = require('../model.js');
 const { paging } = require('../util/index.js')
 // 添加文章
 const addArticle = async function(item){
-    let {title,description,previewImage,content_html } = item
+    let {title,description,previewImage,content } = item
     const result = await Article.create({
         title,
         description,
         banner:previewImage,
-        content:content_html
+        content:content
     })
     return result
 }
