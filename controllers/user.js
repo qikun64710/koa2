@@ -5,13 +5,14 @@ const fs = require('fs')
 const path = require('path')
 
 const login = async function(ctx,next){
-    const data = ctx.request.query
+    const data = ctx.request.body
     const userInfo = await getUserByName(data.name)
     if(userInfo){
         if(!bcrypt.compareSync(data.password,userInfo.dataValues.password)){ //验证密码是否正确
             ctx.response.body = {
-                success: false,
-                info:'密码错误'
+                code:10001,
+                msg: '密码错误',
+                data:''
             }
         }else{
             const userToken = {
@@ -21,38 +22,46 @@ const login = async function(ctx,next){
             const secret = 'vue-koa-demo'
             const token = jwt.sign(userToken,secret)//签发token
             ctx.response.body = {
-                success:true,
-                token:token
+                msg:'登录成功',
+                code:200,
+                data:{
+                    userInfo:userInfo,
+                    token:token
+                }
             }
         }
     }else{
         ctx.response.body = {
-            success:false,
-            info:'用户不存在'
+            code:10001,
+            msg:'用户不存在',
+            data:''
         }
     }
 }
 const userRegiste = async function(ctx,next) {
-    const data = ctx.request.query
+    const data = ctx.request.body
     let { name,password } = data
     if(!name){
         ctx.response.body = {
-            success:false,
-            info:'用户名不能为空'
+            code:200,
+            msg:'用户名不能为空',
+            data:''
         }
         return
     }
     if(!password){
         ctx.response.body = {
-            success:false,
-            info:'密码不能为空'
+            code:200,
+            msg:'密码不能为空',
+            data:''
         }
         return 
     }
     const regist_result = await registe(data)
     ctx.response.body = {
-        success: true,
-        info:regist_result
+        code:200,
+        msg:'注册成功',
+        data:regist_result
     }
 }
 const uploadImg = async function(ctx,next){

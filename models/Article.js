@@ -2,12 +2,12 @@ const {Article} = require('../model.js');
 const { paging } = require('../util/index.js')
 // 添加文章
 const addArticle = async function(item){
-    let {title,content,description,typeid } = item
+    let {title,description,previewImage,content_html } = item
     const result = await Article.create({
         title,
-        content,
         description,
-        type_id:typeid
+        banner:previewImage,
+        content:content_html
     })
     return result
 }
@@ -33,6 +33,14 @@ const findAndCountAll = async function(page,pageSize){
     let obj = paging(result,pageSize,page)
     return obj;
 }
+const findArticle = async function(id){
+    const result = await Article.findAll({
+        where: {
+            id: id
+        }
+    });
+    return result;
+}
 // 模糊查询文章
 const fuzzyFind = async function(name){
     
@@ -43,5 +51,6 @@ module.exports =  {
     deleteArticle,
     updateArticle,
     findAndCountAll,
-    fuzzyFind
+    fuzzyFind,
+    findArticle
 }

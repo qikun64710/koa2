@@ -3,6 +3,12 @@ module.exports = db.defineModel('Article',{
     title:{
         type:db.STRING(100),
     },
+    banner:{
+        type:db.STRING(100)
+    },
+    description:{
+        type:db.STRING(100)
+    },
     content:{
         type:db.TEXT,
     },
@@ -13,12 +19,5 @@ module.exports = db.defineModel('Article',{
     read_num:{
         type:db.INTEGER(11),
         defaultValue:0
-    },
-    description:{
-        type:db.STRING(100)
-    },
-    type_id:{
-        type:db.INTEGER(11),
-        allowNull:true,
     },
 })

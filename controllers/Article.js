@@ -18,7 +18,18 @@ const addArticle = async function(ctx,next){
         info:result
     }
 }
+// 根据id查找文章
+const findArticle = async function(ctx,next){
+    let {id} = ctx.request.query
+    const result = await Article.findArticle(id)
+    ctx.response.body = {
+        code:200,
+        data:result[0],
+        msg:'操作成功'
+    }
+}
 module.exports =  {
     findAndCountAll,
-    addArticle
+    addArticle,
+    findArticle
 }
