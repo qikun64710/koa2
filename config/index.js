@@ -43,10 +43,6 @@ function defineModel(name,attributes){
     type:DataTypes.BIGINT,
     allowNull:false
   };
-  attrs.version = {
-    type:DataTypes.BIGINT,
-    allowNull:false
-  };
   class model extends Model{}
   model.init(
     attrs,
@@ -62,11 +58,10 @@ function defineModel(name,attributes){
             console.log('will create entity...' + obj);
             obj.createAt = now;
             obj.updateAt = now;
-            obj.version = 0;
+            obj.status = 0;
           }else{
             console.log('will update entity....');
             obj.updateAt = now;
-            obj.version++;
           }
         }
       }

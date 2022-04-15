@@ -14,6 +14,10 @@ module.exports = db.defineModel('User',{
             this.setDataValue('password', psw);
         }
     },
+    status:{
+        type:db.INTEGER(10),
+        allowNull:false,
+    },
     avatar:{
         type:db.STRING(100),
         allowNull:true

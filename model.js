@@ -5,5 +5,5 @@ for(let f in js_files){
     module.exports[f] = require(__dirname + '/schema/' +f);
 }
 module.exports.sync = () =>{
-    db.sync()
+    db.sync({ force: true })
 }
