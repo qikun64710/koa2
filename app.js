@@ -22,10 +22,10 @@ app.use(koaBody({
 }))
 
 // routes
+app.use(user.routes(), user.allowedMethods())
 app.use(article.routes(), article.allowedMethods())
 app.use(category.routes(), category.allowedMethods())
 app.use(uploadImg.routes(), uploadImg.allowedMethods())
-app.use(user.routes(), user.allowedMethods())
 
 
 // error-handling

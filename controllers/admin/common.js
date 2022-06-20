@@ -1,6 +1,6 @@
 
 const fs = require('fs')
-const {cosUtil} = require('../util/upload')
+const {cosUtil} = require('../../util/upload')
 
 const uploadimg = async function(ctx,next){
     let file = ctx.request.files.file

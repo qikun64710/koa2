@@ -1,7 +1,9 @@
 const router = require('koa-router')()
-const user = require('../controllers/User.js')
+const user = require('../controllers/admin/user.js')
 
-router.post('/api/user/login',user.login)
-router.post('/api/user/registe',user.userRegiste)
+// 登陆
+router.post('/api/user/login',user.login);
+// 注册
+router.post('/api/user/registe',user.userRegiste);
 
 module.exports = router

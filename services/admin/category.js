@@ -1,4 +1,4 @@
-const modelCategory = require('../model.js');
+const modelCategory = require('../../model.js');
 // 添加分类
 const addCategory = async function(data){
     let {name} = data
@@ -29,9 +29,7 @@ const updateCategory = async function(id,name){
 }
 // 查找所有分类
 const findAllCategory = async function(){
-    const result = await modelCategory.Category.findAll({
-        attributes:['name']
-    });
+    const result = await modelCategory.Category.findAll();
     return result;
 }
 // 模糊查询

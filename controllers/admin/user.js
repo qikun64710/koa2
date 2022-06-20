@@ -1,11 +1,11 @@
-let {getUserByName,registe} = require('../models/User.js');
+let {getUserByName,registe} = require('../../services/admin/User.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const fs = require('fs')
 const path = require('path')
 
 const login = async function(ctx,next){
-    const data = ctx.request.body
+    const data = ctx.request.query
     const userInfo = await getUserByName(data.name)
     if(userInfo){
         if(!bcrypt.compareSync(data.password,userInfo.dataValues.password)){ //验证密码是否正确
@@ -39,7 +39,12 @@ const login = async function(ctx,next){
     }
 }
 const userRegiste = async function(ctx,next) {
-    const data = ctx.request.body
+    console.log('quest:', ctx.request.query)
+    const data = ctx.request.query
+    if (!data.role_id) {
+        // 个人注册时统一分配角色为 normal（普通用户）
+        data.role_id = 2
+    }
     let { name,password } = data
     if(!name){
         ctx.response.body = {
@@ -57,11 +62,20 @@ const userRegiste = async function(ctx,next) {
         }
         return 
     }
-    const regist_result = await registe(data)
-    ctx.response.body = {
-        code:200,
-        msg:'注册成功',
-        data:regist_result
+    const count = await getUserByName(data.name)
+    if (count.length > 0) {
+        ctx.body = {
+            code:200,
+            msg:'当前用户已存在',
+            data:regist_result
+        }
+    } else {
+        const regist_result = await registe(data)
+        ctx.response.body = {
+            code:200,
+            msg:'注册成功',
+            data:regist_result
+        }
     }
 }
 const uploadImg = async function(ctx,next){
@@ -76,7 +90,7 @@ const uploadImg = async function(ctx,next){
     reader.pipe(upStream);
     ctx.response.body = {
         success: true,
-        cood:200,
+        code:200,
         info:'图片成功'
     }
 }

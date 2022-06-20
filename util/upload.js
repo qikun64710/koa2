@@ -14,8 +14,8 @@ const cosUtil = {
         }
         // 密钥
         this.cos = new COS({
-            SecretId: 'AKIDe8MK1RaT5QVJr88qITN0WljQqDJ7evwg',   // 密钥id
-            SecretKey: 'UheKjqhHxPbXCahY8RSDhuqWv2sRkmY3'  // 密钥key
+            SecretId: 'AKIDwhBQO5VeW7RTFl0yh9KEsFK8fvuc2C5h',   // 密钥id
+            SecretKey: 'MTJsAF3apnVw5xZu411mGTP5UcT3NQCh'  // 密钥key
         });
     },
     putObject(params,callback){

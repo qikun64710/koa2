@@ -1,9 +1,10 @@
-let Article = require('../models/Article.js');
+let Article = require('../../services/admin/article.js');
+
 
 // 分页查询
 const findAndCountAll = async function(ctx,next){
-    let {page = 1,count = 10 } = ctx.request.query;
-    const result = await Article.findAndCountAll(Number(page),Number(count));
+    let {page = 1,count = 10 ,type=''} = ctx.request.query;
+    const result = await Article.findAndCountAll(Number(page),Number(count),type);
     ctx.response.body = {
         code:200,
         info:result

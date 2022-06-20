@@ -1,4 +1,4 @@
-const { Sequelize, Model, DataTypes } = require("sequelize");
+const { Sequelize, Model, DataTypes, Op } = require("sequelize");
 const config = require('./config.js');
 const uuid = require('node-uuid');
 
@@ -37,11 +37,11 @@ function defineModel(name,attributes){
   }
   attrs.createAt = {
     type: DataTypes.BIGINT,
-    allowNull: false
+    allowNull: true
   };
   attrs.updateAt = {
     type:DataTypes.BIGINT,
-    allowNull:false
+    allowNull:true
   };
   class model extends Model{}
   model.init(
@@ -55,13 +55,20 @@ function defineModel(name,attributes){
         beforeValidate:function(obj){
           let now = Date.now();
           if(obj.isNewRecord){
-            console.log('will create entity...' + obj);
             obj.createAt = now;
             obj.updateAt = now;
             obj.status = 0;
           }else{
-            console.log('will update entity....');
             obj.updateAt = now;
+          }
+        },
+        beforeBulkCreate:(modelArr,optons)=>{
+          let now = Date.now();
+          for(const member of modelArr){
+            if(member.isNewRecord){
+              member.createAt = now;
+              member.updateAt = now;
+            }
           }
         }
       }
