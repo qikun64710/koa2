@@ -10,9 +10,12 @@ const RoleMenuList = require('./roleMenuList')
 ArticleType.hasMany(Article, { foreignKey: 'type' })
 Article.belongsTo(ArticleType, { foreignKey: 'type' })
 
-// 角色关联 一 对 多
-Role.hasMany(User, { foreignKey: 'role_ids' })
-User.belongsTo(Role, { foreignKey: 'role_ids' })
+// 角色关联 多 对 多
+MenuList.belongsToMany(Role, { through: RoleMenuList })
+Role.belongsToMany(MenuList, { through: RoleMenuList })
+
+User.belongsToMany(Role, {through: 'userRoles', as:'UserRoles'});
+Role.belongsToMany(User, {through: 'userRoles', as:'UserRoles'});
 
 // 多对多
 MenuList.belongsToMany(Role, { through: RoleMenuList })

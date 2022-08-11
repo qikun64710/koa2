@@ -5,5 +5,5 @@ for(let f in js_files){
     module.exports[f] = require(__dirname + '/models/' +f);
 }
 module.exports.sync = () =>{
-    db.sync({ alert: true })
+    db.sync({ force: true })
 }
