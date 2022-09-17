@@ -1,11 +1,11 @@
 const COS = require('cos-nodejs-sdk-v5')
-
+const { SECRETID, SECRETKEY } = require('./config/config.default')
 const BUCKET = 'qkblog-1301961619'
 const REGION = 'ap-shanghai'
 class UploadFile {
     cos = new COS({
-        SecretId: 'xx',
-        SecretKey: 'xx'
+        SecretId: SECRETID,
+        SecretKey: SECRETKEY
     })
     putObject(params, callback) {
         console.log('进来了吗')
