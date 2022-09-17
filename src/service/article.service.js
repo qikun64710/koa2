@@ -53,18 +53,33 @@ class ArticleService {
         }
     }
     // 查询全部
-    async findAllArticle() {
-        const res = await Article.findAll()
-        return res
+    async findAllArticle({ pageSize = 10, current = 1 }) {
+        const list = await Seq.select(
+            'SELECT * from koa_article limit ? OFFSET ?' ,
+            [pageSize, (current - 1) * pageSize]
+        )
+        const res = await Seq.select(
+            'SELECT count(*) as total from koa_article'
+        )
+        const data = {
+            list,
+            page: {
+                current,
+                pageSize,
+                total: res[0].total,
+                totalPage: Math.ceil( res[0].total / pageSize )
+            }
+
+        }
+        return data
     }
     // 根据id查找文章
-    async findArticleId( id ) {
-        const res = await Article.findAll({
-            where: {
-                id
-            }
-        })
-        return res
+    async findArticleId(id) {
+        const res = await Seq.select(
+            'SELECT * from koa_article where id = ?',
+            [ id ]
+        )
+        return res[0]
     }
     // 带分页的查询文章
     async findAndCountAll({categoryId, pageSize, current}) {

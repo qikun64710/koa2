@@ -4,8 +4,8 @@ const BUCKET = 'qkblog-1301961619'
 const REGION = 'ap-shanghai'
 class UploadFile {
     cos = new COS({
-        SecretId: 'AKIDOZjlZP0Kk8PRCj02nHUTEm8GAoCI9l7D',
-        SecretKey: 'vb2i6E7k6C2c0A4jncBTWMzQefQu8g2D'
+        SecretId: 'xx',
+        SecretKey: 'xx'
     })
     putObject(params, callback) {
         console.log('进来了吗')

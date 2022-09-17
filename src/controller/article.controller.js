@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { createArticle, findAllArticle, upateArticle, findAndCountAll } = require('../service/article.service')
+const { createArticle, findAllArticle, upateArticle, findAndCountAll, findArticleId } = require('../service/article.service')
 const uploadFile = require('../util/upload')
 class ArticleControle {
     async uploadImg(ctx, next) {
@@ -43,6 +43,24 @@ class ArticleControle {
             }
         }
     }
+    // 根据id查找文章
+    async findArticleId(ctx, next ) {
+        const { id } = ctx.request.body
+        try {
+            const res = await findArticleId(id)
+            ctx.body = {
+                code: 200,
+                message: '操作成功',
+                result: res
+            }
+        } catch (error) {
+            ctx.status = 400
+            ctx.body = {
+                message: '操作失败',
+                err: error
+            }
+        }
+    }
     // 修改文章
     async upateArticle(ctx, next) {
         const { id, title, banner, description, content } = ctx.request.body
@@ -65,13 +83,13 @@ class ArticleControle {
     }
     // 分页查询文章
     async findAndCountAll(ctx, next) {
-        const { categoryId, page } = ctx.request.body
-        const { pageSize, current } = page 
+        const { categoryId, pageSize, current  } = ctx.request.body
         try {
             const res = await findAndCountAll({ categoryId, pageSize, current })
             ctx.body = {
                 message: '操作成功',
-                result: res
+                result: res,
+                code: 200
             }
         } catch (error) {
             ctx.status = 400
@@ -83,9 +101,9 @@ class ArticleControle {
     }
     // 查询全部文章
     async findAllArticle(ctx, next) {
-        const { id } = ctx.request.body
+        const { pageSize, current } = ctx.request.body
         try {
-            const res = await findAllArticle(id)
+            const res = await findAllArticle({ pageSize, current })
             ctx.body = {
                 code: 200,
                 message: '操作成功',
